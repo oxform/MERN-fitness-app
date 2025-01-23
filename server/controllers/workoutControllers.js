@@ -57,6 +57,23 @@ const deleteWorkout = async(req,res) => {
 
 };
 
+//deletes ALL workouts 
+
+const deleteAllWorkouts = async (req, res) => {
+    try {
+      const result = await Workout.deleteMany({}); // Deletes all documents in the collection
+  
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ error: "No workouts found to delete" });
+      }
+  
+      res.status(200).json({ message: `${result.deletedCount} workouts deleted successfully` });
+    } catch (error) {
+      res.status(500).json({ error: "An error occurred while deleting workouts" });
+    }
+  };
+  
+
 // update a workout
 
 
@@ -83,5 +100,6 @@ module.exports = {
   getWorkouts,
   getSingleWorkout,
   deleteWorkout,
+  deleteAllWorkouts,
   updateWorkout
 };
