@@ -25,36 +25,31 @@ const getSingleWorkout = async (req, res) => {
   }
 };
 
-// create new workout
 const createWorkout = async (req, res) => {
-    const { title, reps, weight } = req.body;
+  const { title, reps, weight } = req.body;
 
-    let emptyFields = []
+  let emptyFields = [];
 
-    if(!title) {
-      emptyFields.push('title')
-    }
+  if (!title) emptyFields.push('title');
+  if (!reps) emptyFields.push('reps');
+  if (!weight) emptyFields.push('weight');
 
-    if(!reps) {
-      emptyFields.push('reps')
-    }
+  if (emptyFields.length > 0) {
+    return res.status(400).json({
+      error: 'Error: one or more fields are missing',
+      emptyFields,
+    });
+  }
 
-    if(!weight) {
-      emptyFields.push('weight')
-    }
+  // Add workout to database
+  try {
+    const workout = await Workout.create({ title, reps, weight });
+    res.status(200).json(workout);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
-    if(emptyFields.length > 0) {
-      return res.status(400).json({error:'Error: one or more fields missing', emptyFields})
-    }
-  
-    // Add workout to database
-    try {
-      const workout = await Workout.create({ title, reps, weight });
-      res.status(200).json(workout); // Send the response only once
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  };
 
 // delete a workout
 
