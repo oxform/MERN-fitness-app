@@ -65,6 +65,20 @@ return (
         className={emptyFields.includes('reps') ? 'error' : ''}
         />
 
+      <label> Catagory </label>
+      <select
+      onChange={(e) => setReps(e.target.value)}  
+      value={reps}    
+      className={emptyFields.includes('reps') ? 'error' : ''}
+      >
+      <option value="">Select category</option>
+      <option value="chest">chest</option>
+      <option value="back">back</option>
+      <option value="shoulders">shoulders</option>
+      <option value="arms">arms</option>
+      <option value="core">core</option>
+      {/* Add more options as needed */}
+      </select>
         <button> Save Exercise </button>
         {error && <div className="error-container">{error}</div>}
 

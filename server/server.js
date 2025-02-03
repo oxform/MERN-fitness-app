@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONG_URI)
     .then(() => {
         // listen for requests once connected to db 
         app.listen(process.env.PORT,()=>{
-            console.log('Connected to database, currently listening on port 4000!!');
+            console.log('Connected to database, currently listening on port 4000');
         })
     })
     .catch((error)=> {

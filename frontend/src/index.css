@@ -75,11 +75,36 @@ header a {
   color: #333;
 }
 
-label,input{
+.workout-details-container {
+
+.cancelBtn {
+  background: var(--error);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.saveBtn {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+}
+
+label,input,select{
   display:block
 }
 
-input {
+input,select {
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
