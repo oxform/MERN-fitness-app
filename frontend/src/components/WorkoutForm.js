@@ -7,13 +7,14 @@ const WorkoutForm = () => {
     const[title, setTitle] = useState('');
     const[weight, setWeight] = useState('');
     const[reps, setReps] = useState('');
+    const[category, setCategory] = useState('');
     const[error, setError] = useState(null);
     const[emptyFields,setEmptyFields] = useState([])
 
     const handleSubmit = async (e) => {
          e.preventDefault()
 
-         const workout = {title,weight,reps}
+         const workout = {title,weight,reps,category}
          const response = await fetch('/api/workouts',{
             method:'POST',
             body: JSON.stringify(workout),
@@ -30,6 +31,7 @@ const WorkoutForm = () => {
             setTitle('')
             setWeight('')
             setReps('')
+            setCategory('')
             setError(null)
             setEmptyFields([])
             console.log('new workout added', json)
@@ -65,20 +67,22 @@ return (
         className={emptyFields.includes('reps') ? 'error' : ''}
         />
 
-      <label> Catagory </label>
-      <select
-      onChange={(e) => setReps(e.target.value)}  
-      value={reps}    
-      className={emptyFields.includes('reps') ? 'error' : ''}
-      >
-      <option value="">Select category</option>
-      <option value="chest">chest</option>
-      <option value="back">back</option>
-      <option value="shoulders">shoulders</option>
-      <option value="arms">arms</option>
-      <option value="core">core</option>
-      {/* Add more options as needed */}
-      </select>
+         <label> Category </label>
+         <select
+         onChange={(e) => setCategory(e.target.value)}
+         value={category}
+         className={emptyFields.includes("category") ? "error" : ""}
+         >
+         <option value="">Select Category</option>
+         <option value="Legs">Legs</option>
+         <option value="chest">Chest</option>
+         <option value="back">Back</option>
+         <option value="shoulders">Shoulders</option>
+         <option value="arms">Arms</option>
+         <option value="core">Core</option>
+         </select>
+
+
         <button> Save Exercise </button>
         {error && <div className="error-container">{error}</div>}
 
@@ -87,4 +91,4 @@ return (
 
 }
 
-export default WorkoutForm
+export default WorkoutForm  

@@ -26,13 +26,14 @@ const getSingleWorkout = async (req, res) => {
 };
 
 const createWorkout = async (req, res) => {
-  const { title, reps, weight } = req.body;
+  const { title, reps, weight, category } = req.body;
 
   let emptyFields = [];
 
   if (!title) emptyFields.push('title');
   if (!reps) emptyFields.push('reps');
   if (!weight) emptyFields.push('weight');
+  if (!category) emptyFields.push('category');
 
   if (emptyFields.length > 0) {
     return res.status(400).json({
@@ -43,7 +44,7 @@ const createWorkout = async (req, res) => {
 
   // Add workout to database
   try {
-    const workout = await Workout.create({ title, reps, weight });
+    const workout = await Workout.create({ title, reps, weight,category });
     res.status(200).json(workout);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -88,7 +89,6 @@ const deleteAllWorkouts = async (req, res) => {
   
 
 // update a workout
-
 
 const updateWorkout = async (req, res) => {
   const { id } = req.params;

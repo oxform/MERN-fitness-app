@@ -14,7 +14,11 @@ const workoutSchema = new Scehma({
     weight: {
         type: Number,
         required: true
-    }
+    },
+    category: { 
+        type: String, 
+        required: true 
+    },  
 }, { timestamps:true})
 
 module.exports = mongoose.model('Workout', workoutSchema)
