@@ -19,17 +19,18 @@ next()
 
 app.use('/api/workouts', workoutRoutes);
 
-//connect to db
+const PORT = process.env.PORT || 4000; // Use Railway's PORT or default to 4000 locally
+
 mongoose.connect(process.env.MONG_URI)
     .then(() => {
-        // listen for requests once connected to db 
-        app.listen(process.env.PORT,()=>{
-            console.log('Connected to database, currently listening on port 4000');
-        })
+        app.listen(PORT, () => {
+            console.log(`Connected to database, currently listening on port ${PORT}`);
+        });
     })
-    .catch((error)=> {
-        console.log(error)
-    })
+    .catch((error) => {
+        console.log(error);
+    });
+
 
 const path = require('path');
 
