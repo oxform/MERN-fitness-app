@@ -37,8 +37,6 @@ const WorkoutDetails = ({ workout }) => {
    }
   }
 
-
-
   return (
     <div className="workout-details-container">
       {isEditing ? (
