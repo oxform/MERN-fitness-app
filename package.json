@@ -1,0 +1,26 @@
+{
+    "name": "mern-fitness-app",
+    "version": "1.0.0",
+    "main": "server/server.js",
+    "scripts": {
+      "start": "node server/server.js",
+      "build": "cd frontend && npm install && npm run build",
+      "server": "nodemon server/server.js",
+      "client": "cd frontend && npm start",
+      "dev": "concurrently \"npm run server\" \"npm run client\"",
+      "install-server": "cd server && npm install",
+      "install-client": "cd frontend && npm install",
+      "heroku-postbuild": "npm run install-client && npm run build"
+    },
+    "dependencies": {
+      "dotenv": "^16.4.7",
+      "express": "^4.21.2",
+      "mongodb": "^6.12.0",
+      "mongoose": "^8.9.5",
+      "concurrently": "^8.0.1"
+    },
+    "devDependencies": {
+      "@types/express": "^5.0.0",
+      "nodemon": "^2.0.15"
+    }
+  }

@@ -31,6 +31,18 @@ mongoose.connect(process.env.MONG_URI)
         console.log(error)
     })
 
+const path = require('path');
 
+// Your existing middleware and routes here
+
+// Serve static files from the React frontend app in production
+if (process.env.NODE_ENV === 'production') {
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
+}
 
 
