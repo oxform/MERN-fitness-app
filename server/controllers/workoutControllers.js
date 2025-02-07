@@ -37,10 +37,18 @@ const createWorkout = async (req, res) => {
 
   if (emptyFields.length > 0) {
     return res.status(400).json({
-      error: 'Error: one or more fields are missing',
+      error: 'Error: one or more fields are missing', 
       emptyFields,
     });
   }
+
+  if (reps || weight <= 0){
+    return res.status(400).json({
+      error: 'Error: reps and weight cannot equal 0 or less ',
+      emptyFields,
+    });
+  }
+
 
   // Add workout to database
   try {

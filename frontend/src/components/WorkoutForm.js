@@ -56,7 +56,7 @@ return (
         type="number"
         onChange={(e)=> setWeight(e.target.value)}
         value={weight}   
-        className={emptyFields.includes('weight') ? 'error' : ''}        
+        className={emptyFields.includes('weight') ? 'error' : ''}  
         />
 
         <label> Reps: </label>
