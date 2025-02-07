@@ -11,10 +11,16 @@ body {
   background: #f1f1f1;
   margin: 0;
   font-family: 'Poppins';
+  padding-top: 10vh; /* Adjust based on your header height */
 }
 
 header {
   background: #fff;
+  height: 10vh;
+  position: fixed; /* Make the header fixed */
+  top: 0; /* Stick to the top */
+  width: 100%; /* Ensure it spans the full width */
+  z-index: 1000; /* Ensure the navbar stays on top of other content */
 }
 
 header .navBar-container {
@@ -25,6 +31,9 @@ header .navBar-container {
   align-items: center;
   justify-content: space-between;
 }
+
+
+
 header a {
   color: #333;
   text-decoration: none;
@@ -157,4 +166,101 @@ input.error {
 
 select.error {
   border: 1px solid var(--error) !important;
+}
+
+.workout-page {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.date-nav {
+  width: 250px;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.date-nav h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.date-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.date-button {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.date-button:hover {
+  background-color: #f3f4f6;
+}
+
+.date-button.active {
+  background-color: #10b981;
+  color: white;
+}
+
+.workout-count {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.workout-content {
+  flex: 1;
+}
+
+.selected-date-workouts {
+
+  overflow:scroll;
+  max-height: 70vh;
+  margin: 1rem 0;
+
+  h3 {
+    margin: 1rem 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+}
+
+.workouts-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .workout-page {
+    flex-direction: column;
+  }
+
+  .date-nav {
+    width: 100%;
+  }
+
+  .date-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .date-button {
+    white-space: nowrap;
+  }
 }
