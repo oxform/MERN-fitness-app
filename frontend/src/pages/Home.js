@@ -41,7 +41,7 @@ const Home = () => {
         setSelectedDate(dates[0]);
       }
     }
-  }, [workouts]);
+  }, [workouts,selectedDate]);
 
   return (
     <div className="home">
