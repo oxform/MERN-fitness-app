@@ -6,7 +6,7 @@ return (
     <header>
         <div className="navBar-container">
             <Link to= "/">
-            <h1>Sonic Fitness</h1>
+            <h1>Roo Fitness</h1>
             </Link>
         </div>
     </header>

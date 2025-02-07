@@ -42,13 +42,14 @@ const createWorkout = async (req, res) => {
     });
   }
 
+  /*
   if (reps || weight <= 0){
     return res.status(400).json({
       error: 'Error: reps and weight cannot equal 0 or less ',
       emptyFields,
     });
   }
-
+*/
 
   // Add workout to database
   try {
