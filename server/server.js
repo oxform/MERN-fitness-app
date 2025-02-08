@@ -46,4 +46,7 @@ res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 }
 
+app.get('/api/health', (req, res) => {
+    res.status(200).send('OK');
+});
 
