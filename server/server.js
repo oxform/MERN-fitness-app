@@ -6,7 +6,6 @@ const workoutRoutes = require('./routes/workouts')
 
 // express app init
 const app = express()
-const PORT = process.env.PORT || 4000
 
 // middleware
 app.use(express.json())
@@ -15,18 +14,22 @@ app.use((req, res, next) => {
     next()
 })
 
-// API routes
-app.use('/api/workouts', workoutRoutes)
-
-// Health check - now checks DB connection status
+// Health check that doesn't depend on DB
 app.get('/api/health', (req, res) => {
-    console.log('Health check hit, DB state:', mongoose.connection.readyState)
-    // Return OK even if DB isn't connected yet
-    res.status(200).json({
-        status: 'OK',
-        dbState: mongoose.connection.readyState
-    })
+    console.log('Health check hit')
+    res.status(200).send('OK')
 })
+
+// API routes with DB check
+app.use('/api/workouts', async (req, res, next) => {
+    if (!process.env.MONGODB_URL && !process.env.MONG_URI) {
+        return res.status(503).json({ error: 'Database configuration pending' })
+    }
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ error: 'Database connection not ready' })
+    }
+    next()
+}, workoutRoutes)
 
 // Static file serving in production
 if (process.env.NODE_ENV === 'production') {
@@ -45,24 +48,23 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+// Port configuration
+const PORT = process.env.PORT || 4000
+
 // Start server immediately
-const server = app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`)
+const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log('Server starting on port:', PORT)
 })
 
-// Connect to database after server is running
-mongoose.connect(process.env.MONGODB_URL || process.env.MONG_URI)
-    .then(() => {
-        console.log('Connected to database')
-    })
-    .catch((error) => {
-        console.log('Database connection error:', error)
-    })
-
-// Handle server shutdown
-process.on('SIGTERM', () => {
-    console.log('SIGTERM received')
-    server.close(() => {
-        mongoose.connection.close()
-    })
-})
+// Try to connect to database if configured
+if (process.env.MONGODB_URL || process.env.MONG_URI) {
+    mongoose.connect(process.env.MONGODB_URL || process.env.MONG_URI)
+        .then(() => {
+            console.log('Connected to database')
+        })
+        .catch((error) => {
+            console.log('Database connection error:', error)
+        })
+} else {
+    console.log('No database configuration found - waiting for environment variables')
+}
