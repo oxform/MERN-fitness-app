@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 // Health check that doesn't depend on DB
 app.get('/api/health', (req, res) => {
     console.log('Health check hit')
-    res.status(200).send('OK')
+    res.status(200).json({ status: "OK", message: "Service is healthy" });
 })
 
 // API routes with DB check
